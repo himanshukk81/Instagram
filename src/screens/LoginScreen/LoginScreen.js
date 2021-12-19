@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View ,AsyncStorage } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 
 // import { firebase } from '../../firebase/config'
 
 import auth from '@react-native-firebase/auth';
+import { setUser } from '../../Utility';
 
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
@@ -21,6 +22,8 @@ export default function LoginScreen({navigation}) {
         .createUserWithEmailAndPassword(email,password)
         .then((response) => {
             console.log({response});
+            console.log({aaa:response.user})
+            setUser(response.user);
             console.log('User account created & signed in!');
         })
         .catch(error => {
